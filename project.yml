@@ -1,0 +1,147 @@
+name: FLEX
+
+options:
+  bundleIdPrefix: io.anderson.ucb
+  tabWidth: 2
+  usesTabs: false
+  indentWidth: 2
+  developmentLanguage: "en"
+  deploymentTarget:
+    iOS: 9.0
+
+settings:
+  DEVELOPMENT_TEAM: PN8K78V28P
+  GENERATE_INFOPLIST_FILE: YES
+  CURRENT_PROJECT_VERSION: 5.22.10
+  MARKETING_VERSION: 1
+
+targets:
+  FLEX:
+    platform: iOS
+    type: framework
+    sources:
+      - path: FLEX/Classes/
+        createIntermediateGroups: true
+        excludes:
+          # - "**/Headers"
+          - "**/FLEXRuntimeSafety.h"
+          - "**/FLEXExplorerToolbarItem.h"
+          - "**/FLEXManager.h"
+          - "**/FLEXBlockDescription.h"
+          - "**/FLEXMacros.h"
+          - "**/FLEXProtocolBuilder.h"
+          - "**/FLEXColorPreviewSection.h"
+          - "**/FLEXCollectionContentSection.h"
+          - "**/FLEX-Runtime.h"
+          - "**/UIBarButtonItem+FLEX.h"
+          - "**/FLEXResources.h"
+          - "**/FLEXTypeEncodingParser.h"
+          - "**/FLEX.h"
+          - "**/FLEXRuntimeConstants.h"
+          - "**/FLEXClassBuilder.h"
+          - "**/FLEXCodeFontCell.h"
+          - "**/FLEXTableViewSection.h"
+          - "**/FLEXFilteringTableViewController.h"
+          - "**/CALayer+FLEX.h"
+          - "**/FLEXSubtitleTableViewCell.h"
+          - "**/FLEXObjectExplorerViewController.h"
+          - "**/FLEXManager+Networking.h"
+          - "**/FLEXMetadataSection.h"
+          - "**/FLEX-Categories.h"
+          - "**/UIFont+FLEX.h"
+          - "**/FLEXTableView.h"
+          - "**/FLEXMethodBase.h"
+          - "**/FLEXObjectExplorer.h"
+          - "**/FLEXShortcut.h"
+          - "**/FLEXTableViewCell.h"
+          - "**/FLEX-Core.h"
+          - "**/FLEXMultilineTableViewCell.h"
+          - "**/FLEXProtocol.h"
+          - "**/FLEXExplorerToolbar.h"
+          - "**/FLEXGlobalsEntry.h"
+          - "**/NSObject+FLEX_Reflection.h"
+          - "**/FLEX-ObjectExploring.h"
+          - "**/NSArray+FLEX.h"
+          - "**/FLEXRuntime+Compare.h"
+          - "**/FLEXShortcutsSection.h"
+          - "**/FLEXPropertyAttributes.h"
+          - "**/UIGestureRecognizer+Blocks.h"
+          - "**/FLEXMirror.h"
+          - "**/FLEXObjectExplorerFactory.h"
+          - "**/FLEXKeyValueTableViewCell.h"
+          - "**/FLEXNavigationController.h"
+          - "**/NSTimer+FLEX.h"
+          - "**/FLEXDefaultsContentSection.h"
+          - "**/FLEXTableViewController.h"
+          - "**/FLEXRuntime+UIKitHelpers.h"
+          - "**/FLEXProperty.h"
+          - "**/NSDateFormatter+FLEX.h"
+          - "**/FLEXMutableListSection.h"
+          - "**/UIPasteboard+FLEX.h"
+          - "**/FLEXSwiftInternal.h"
+          - "**/FLEXFileBrowserController.h"
+          - "**/FLEXObjcInternal.h"
+          - "**/FLEXManager+Extensibility.h"
+          - "**/UIMenu+FLEX.h"
+          - "**/FLEXMetadataExtras.h"
+          - "**/FLEXObjectInfoSection.h"
+          - "**/UITextField+Range.h"
+          - "**/FLEXIvar.h"
+          - "**/NSUserDefaults+FLEX.h"
+          - "**/FLEXSingleRowSection.h"
+          - "**/FLEXAlert.h"
+          - "**/FLEXMethod.h"
+        headerVisibility: project
+      - path: FLEX/Classes/
+        includes: 
+          - "**/Headers"
+        headerVisibility: public
+    settings:
+      base:
+        BUILD_LIBRARY_FOR_DISTRIBUTION: YES
+        SKIP_INSTALL: YES
+        SUPPORTED_PLATFORMS: "iphoneos iphonesimulator"
+        SUPPORTS_MACCATALYST: NO
+        SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: NO
+        SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD: NO
+        TARGETED_DEVICE_FAMILY: 1
+        CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER: NO
+    dependencies:
+      - sdk: libsqlite3.dylib
+        embed: false
+      - sdk: libz.dylib
+        embed: false
+
+  FLEXTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: FLEX/FLEXTests
+        createIntermediateGroups: true
+
+    dependencies:
+      - target: FLEX
+
+    settings:
+      base:
+        SUPPORTED_PLATFORMS: "iphoneos iphonesimulator"
+        TARGETED_DEVICE_FAMILY: "1,6,7"
+
+  Host:
+    type: application
+    platform: iOS
+    deploymentTarget: "15.0"
+    sources:
+      - path: Example/
+        # excludes: 
+        #   - "**/Info.plist"
+
+    dependencies:
+      - framework: $(BUILT_PRODUCTS_DIR)/FLEX.framework
+    settings:
+      base:
+        # INFOPLIST_FILE: "FLEX/Example/FLEXample/Supporting Files/Info.plist"
+        SUPPORTS_MACCATALYST: NO
+        SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: NO
+        TARGETED_DEVICE_FAMILY: 1
+
