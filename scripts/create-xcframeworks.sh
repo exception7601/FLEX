@@ -59,6 +59,37 @@ fi
 JSON_CARTHAGE="$(jq --arg version "${VERSION}" --arg url "${DOWNLOAD_URL}" '. + { ($version): $url }' $JSON_FILE)" 
 echo $JSON_CARTHAGE > $JSON_FILE
 
+PACKAGE=$(cat <<END
+// swift-tools-version: 6.0
+
+import PackageDescription
+
+let package = Package(
+  name: "FLEX",
+  platforms: [.iOS(.v12)],
+  products: [
+    .library(
+      name: "FLEX",
+      targets: [
+        "FLEX",
+      ]
+    ),
+  ],
+
+  targets: [
+    .binaryTarget(
+      name: "FLEX",
+      url: "${DOWNLOAD_URL}",
+      checksum: "${SUM}"
+    )
+  ]
+)
+END
+)
+
+echo "$PACKAGE" > Package.swift
+git add Package.swift
+
 git add version $JSON_FILE
 git commit -m "new Version ${NEW_VERSION}"
 git tag -s -a ${NEW_VERSION} -m "v${NEW_VERSION}"
