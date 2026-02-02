@@ -17,8 +17,8 @@ let package = Package(
   targets: [
     .binaryTarget(
       name: "FLEX",
-      url: "https://github.com/exception7601/FLEX/releases/download/5.22.10.1758565135/FLEX-64aa7f014bd07313.zip",
-      checksum: "35348a7f80c64ab9e1ba3adbbaaba148c29f37e91b1bce5108d35c9ef248416b"
+      url: "https://github.com/exception7601/FLEX/releases/download/5.22.10.1770064284/FLEX-e34d20ddc2c9d1f4.zip",
+      checksum: "e25a6465154fb2853ae05a6b66afcfd54fe7450c612c4a5d07ff9562e23f9e0f"
     )
   ]
 )
