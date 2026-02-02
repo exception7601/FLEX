@@ -26,6 +26,9 @@ xcodebuild archive \
     -archivePath "$ROOT/$ARCHIVE_NAME-$PLATAFORM.xcarchive" \
     SKIP_INSTALL=NO \
     BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
+    CODE_SIGN_IDENTITY="Apple Development" \
+    DEVELOPMENT_TEAM=PN8K78V28P \
+    CODE_SIGN_STYLE=Automatic \
     DEBUG_INFORMATION_FORMAT=DWARF
 done
 
@@ -88,8 +91,13 @@ END
 )
 
 echo "$PACKAGE" > Package.swift
-git add Package.swift
 
+# update submodule
+if ! git diff --quiet FLEX; then
+  git add FLEX
+fi
+
+git add Package.swift
 git add version $JSON_FILE
 git commit -m "new Version ${NEW_VERSION}"
 git tag -s -a ${NEW_VERSION} -m "v${NEW_VERSION}"
@@ -118,3 +126,4 @@ END
 
 gh release edit ${NEW_VERSION} --notes  "${NOTES}"
 echo "${NOTES}"
+
